@@ -1,0 +1,41 @@
+services:
+  webpage:
+    image: nginx:latest
+    container_name: webpage
+    ports:
+      - "8081:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    restart: always
+
+  redpage:
+    image: nginx:latest
+    container_name: redpage
+    ports:
+      - "8082:80"
+    volumes:
+      - ./redblue/red.html:/usr/share/nginx/html/index.html
+    restart: always
+
+  bluepage:
+    image: nginx:latest
+    container_name: bluepage
+    ports:
+      - "8083:80"
+    volumes:
+      - ./redblue/blue.html:/usr/share/nginx/html/index.html
+    restart: always
+
+  reverse-proxy:
+    image: nginx:latest
+    container_name: reverse-proxy
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./reverse-proxy/conf.d:/etc/nginx/conf.d/
+      - ./reverse-proxy/cert:/etc/nginx/cert/
+    links:
+     - webpage
+     - redpage
+     - bluepage
