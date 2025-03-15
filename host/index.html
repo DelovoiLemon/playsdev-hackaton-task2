@@ -2,15 +2,29 @@
 <html>
 <head>
     <title>Main Page</title>
+    <script>
+        function fetchDocument() {
+            fetch('wp/cpu_load')
+                .then(response => response.text())
+                .then(text => document.getElementById('content').textContent = text);
+        }
+        setInterval(fetchDocument, 1000); // Refresh every 2 seconds
+        fetchDocument();
+    </script>
 </head>
 <body>
+    
     <h1>Welcome to the Main Page</h1>
     <ul>
-        <li><a href="firstpage.html">Go to First Page</a></li>
-        <li><a href="secondpage.html">Go to Second Page</a></li>
-        <li><a href="music/song.mp3" download>Download Music</a></li>
-        <li><a href="/redblue">Go to Color Page (Load Balanced)</a></li>
-        <li><a href="external_link">Go to GOOGLE</a></li>
+        <li><a href="/wp/firstpage.html">Go to First Page</a></li>
+        <li><a href="/wp/secondpage.html">Go to Second Page</a></li>
+        <li><a href="/wp/music/song.mp3" download>Download Music</a></li>
+        <li><a href="/redblue">Go to Color Page (Load Balanced)</a></li> <!-- Stays the same -->
+        <li><a href="/wp/external_link">Go to GOOGLE</a></li>
+        <li><a href="/wp/info.php">Go to PHP Server info</a></li>
+        <li><a href="/wp/something.jpg">Go to JPG Image</a></li>
+        <li><a href="/wp/anything.png">Go to PNG Image</a></li>
+        <li>CPU Load: <b id="content"></b></li>
     </ul>
 </body>
 </html>
